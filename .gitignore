@@ -4,3 +4,4 @@ AimBot/
 **/*.dll
 **/*.sqlite
 **/.vs/
+**/*.exe
