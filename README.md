@@ -40,6 +40,7 @@ Terraria Patcher用于给Terraria打补丁，实现一些功能，而不需要�
 >>打补丁的过程中，Patcher会将游戏公开化，然后将所有补丁和公开化的游戏合并在一起得到半成品。  
 >>紧接着Patcher会扫描所有的类，将所有被PBase所描述的类、方法处理。  
 >>最后执行所有的Python补丁(不确定顺序)，对方法进行处理。  
+>>  
 >>PPatch:用于描述一个类，确定对这个类的操作  
 >>>原型  
 >>>PPatch(PPatchOption option, string Namespace, string TypeName, string Description, bool moveStaticVarible = false, bool moveDynamicVarible = false, bool moveAnonymousType = false)  
@@ -75,9 +76,9 @@ Terraria Patcher用于给Terraria打补丁，实现一些功能，而不需要�
 >>已经准备了ILFactory.dll，有一套的IL指令处理库  
 >>可以参考Utils.py  
 >需要注意的东西:  
->>1.需要替换原方法的内容时，最好的方式是新建一个类继承原类，然后重写你要替换的方法，接着使用PMethod和Replace标识将方法替换  
->>2.PMethod所提供的Hook方式只能在方法末尾进行Hook，这是为防止在前面插入指令而影响指令索引，提高兼容性  
->>3.有一种更好的Hook方式，那就是用新方法替换原方法，在头尾加入调用Hook的代码  
->>4.如果你写的补丁某个类中有匿名方法，并且该类的PPatch标识为Merge，那么除非你能确定这个匿名方法不会被调用，否则moveAnonymousType参数必须为true  
->>5.静态构造方法写上一些东西，游戏在一开始运行的时候就会执行，这可以用来初始化一些钩子之类的东西  
->>6.不要试图去搞一个原本就是继承而来的方法  
+>>1. 需要替换原方法的内容时，最好的方式是新建一个类继承原类，然后重写你要替换的方法，接着使用PMethod和Replace标识将方法替换  
+>>2. PMethod所提供的Hook方式只能在方法末尾进行Hook，这是为防止在前面插入指令而影响指令索引，提高兼容性  
+>>3. 有一种更好的Hook方式，那就是用新方法替换原方法，在头尾加入调用Hook的代码  
+>>4. 如果你写的补丁某个类中有匿名方法，并且该类的PPatch标识为Merge，那么除非你能确定这个匿名方法不会被调用，否则moveAnonymousType参数必须为true  
+>>5. 静态构造方法写上一些东西，游戏在一开始运行的时候就会执行，这可以用来初始化一些钩子之类的东西  
+>>6. 不要试图去搞一个原本就是继承而来的方法  
