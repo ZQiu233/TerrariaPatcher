@@ -1,0 +1,6 @@
+AimBot/
+**/bin/
+**/obj/
+**/*.dll
+**/*.sqlite
+**/.vs/
