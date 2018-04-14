@@ -67,6 +67,7 @@ Terraria Patcher用于给Terraria打补丁，实现一些功能，而不需要�
 >>>>Skip表示无法满足依赖时警告，并且跳过当前方法，方法不会被处理  
 >>>参数isClass表示所依赖的是否是类，不是类则是方法  
 >>>name是依赖的完全限定名称，即包括命名空间、类名、(方法名)在内的完整名称  
+  
 >Python:  
 >>Patcher使用IronPyhon运行Python，所以可以导入.Net的DLL  
 >>已经准备了ILFactory.dll，有一套的IL指令处理库  
