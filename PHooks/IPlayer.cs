@@ -41,5 +41,12 @@ namespace PHooks
 			ResetEffects();
 			PHooks.Hooks.ResetEffects.DispatchAfter(this);
 		}
+		[PMethod(PMethodOption.Replace, "ItemCheckWrapped", "None")]
+		public void ItemCheckWrapped_Hooked(int i)
+		{
+			PHooks.Hooks.PlayerItemCheckWrapped.DispatchPre(this);
+			ItemCheckWrapped(i);
+			PHooks.Hooks.PlayerItemCheckWrapped.DispatchAfter(this);
+		}
 	}
 }

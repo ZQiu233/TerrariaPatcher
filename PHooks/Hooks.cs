@@ -14,6 +14,7 @@ namespace PHooks
 		public static BaseHook PlayerHurt = new BaseHook();
 		public static BaseHook PlayerAddBuff = new BaseHook();
 		public static BaseHook PlayerUpdateArmorSets = new BaseHook();
+		public static BaseHook PlayerItemCheckWrapped = new BaseHook();
 
 
 		public static BaseHook InterfaceLayersSetup = new BaseHook();
