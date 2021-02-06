@@ -87,13 +87,13 @@ namespace CheatTool
 			{
 				NPC n = new NPC();
 				n.SetDefaults(i);
-				if (!Main.NPCLoaded[i])
+				if (Terraria.GameContent.TextureAssets.Npc[i] == null || !Terraria.GameContent.TextureAssets.Npc[i].IsLoaded)
 					Main.instance.LoadNPC(i);
-				AllNPCs[i] = new ImageBox.ImageBoxItem(Main.npcTexture[i], n.GivenOrTypeName)
+				AllNPCs[i] = new ImageBox.ImageBoxItem(Terraria.GameContent.TextureAssets.Npc[i].Value, n.GivenOrTypeName)
 				{
 					Name = "" + i
 				};
-				AllNPCs[i].DrawingRectangle = new Rectangle(0, 0, Main.npcTexture[i].Width, Main.npcTexture[i].Height / Main.npcFrameCount[i]);
+				AllNPCs[i].DrawingRectangle = new Rectangle(0, 0, Terraria.GameContent.TextureAssets.Npc[i].Value.Width, Terraria.GameContent.TextureAssets.Npc[i].Value.Height / Main.npcFrameCount[i]);
 				AllNPCs[i].OnClick += (s, e) =>
 				{
 					NPC.NewNPC((int)(Main.LocalPlayer.position.X), (int)(Main.LocalPlayer.position.Y), Convert.ToInt32((s as ImageBox.ImageBoxItem).Name));

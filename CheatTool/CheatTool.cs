@@ -9,6 +9,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.UI;
 using Microsoft.Xna.Framework.Graphics;
+using System.Windows.Forms;
 
 namespace CheatTool
 {
@@ -22,7 +23,6 @@ namespace CheatTool
 			get => _WManager;
 			private set => _WManager = value;
 		}
-		private static float BarOff = 0;
 		public static Bar Hotbar = new Bar();
 		private static bool Bar_Hovered = false;
 		static CheatTool()
@@ -33,29 +33,35 @@ namespace CheatTool
 			PHooks.Hooks.ResetEffects.After += ResetEffects_After;
 
 			Hotbar.OnHover += Hotbar_OnHover;
-			Image ItemBrowserImage = new Image(Main.itemTexture[ItemID.WorkBench]) { ToolTip = "Item Browser" };
-			ItemBrowserImage.OnClick += ItemBrowserImage_OnClick;
+			Main.instance.LoadItem(ItemID.WorkBench);
+			Main.instance.LoadItem(ItemID.GuideVoodooDoll);
+			Main.instance.LoadItem(ItemID.Paintbrush);
+			Main.instance.LoadItem(ItemID.DirtBlock);
+			Main.instance.LoadItem(ItemID.ObsidianSkull);
+			Main.instance.LoadItem(ItemID.IceTorch);
 			Main.instance.LoadNPC(NPCID.BlueSlime);
-			Image NPCBrowserImage = new Image(Main.npcTexture[NPCID.BlueSlime]) { ToolTip = "NPC Browser" };
+			Image ItemBrowserImage = new Image(Terraria.GameContent.TextureAssets.Item[ItemID.WorkBench].Value) { ToolTip = "Item Browser" };
+			ItemBrowserImage.OnClick += ItemBrowserImage_OnClick;
+			Image NPCBrowserImage = new Image(Terraria.GameContent.TextureAssets.Npc[NPCID.BlueSlime].Value) { ToolTip = "NPC Browser" };
 			NPCBrowserImage.DrawingRectangle = new Rectangle(0, 0, NPCBrowserImage.Texture.Width, NPCBrowserImage.Texture.Height / Main.npcFrameCount[NPCID.BlueSlime]);
 			NPCBrowserImage.OnClick += NPCBrowserImage_OnClick;
 
-			Image PlayerImage = new Image(Main.itemTexture[ItemID.GuideVoodooDoll]) { ToolTip = "Player" };
+			Image PlayerImage = new Image(Terraria.GameContent.TextureAssets.Item[ItemID.GuideVoodooDoll].Value) { ToolTip = "Player" };
 			PlayerImage.OnClick += PlayerImage_OnClick;
 
 			Image EnviromentImage = new Image(EnviromentBar.DayTimeIcon) { ToolTip = "Enviroment" };
 			EnviromentImage.OnClick += TimeWeather_OnClick;
 
-			Image WorldPainterImage = new Image(Main.itemTexture[ItemID.Paintbrush]) { ToolTip = "World Painter" };
+			Image WorldPainterImage = new Image(Terraria.GameContent.TextureAssets.Item[ItemID.Paintbrush].Value) { ToolTip = "World Painter" };
 			WorldPainterImage.OnClick += WorldPainterImage_OnClick;
 
-			Image WorldBarImage = new Image(Main.itemTexture[ItemID.DirtBlock]) { ToolTip = "World" };
+			Image WorldBarImage = new Image(Terraria.GameContent.TextureAssets.Item[ItemID.DirtBlock].Value) { ToolTip = "World" };
 			WorldBarImage.OnClick += WorldBarImage_OnClick;
 
-			Image ButcherImage = new Image(Main.itemTexture[ItemID.ObsidianSkull]) { ToolTip = "Butcher" };
+			Image ButcherImage = new Image(Terraria.GameContent.TextureAssets.Item[ItemID.ObsidianSkull].Value) { ToolTip = "Butcher" };
 			ButcherImage.OnClick += ButcherImage_OnClick;
 
-			Image FullBrightImage = new Image(Main.itemTexture[ItemID.IceTorch]) { ToolTip = "Full Bright" };
+			Image FullBrightImage = new Image(Terraria.GameContent.TextureAssets.Item[ItemID.IceTorch].Value) { ToolTip = "Full Bright" };
 			FullBrightImage.OnClick += FullBrightImage_OnClick;
 
 
@@ -156,17 +162,15 @@ namespace CheatTool
 		private static void Hotbar_OnHover(object arg1, PUI.EventArgs.MouseEvent arg2)
 		{
 			Bar_Hovered = true;
-			if (BarOff > 0) BarOff--;
 		}
 
 		private static bool Update_Pre(object[] arg)
 		{
 			Bar_Hovered = false;
 			Hotbar.Size = new Vector2(500, 50);
-			Hotbar.Position = new Vector2(Main.screenWidth / 2 - Hotbar.Width / 2, Main.screenHeight - Hotbar.Height + BarOff);
+			Hotbar.Position = new Vector2(Main.screenWidth / 2 - Hotbar.Width / 2, Main.screenHeight - Hotbar.Height - 30);
 			WManager.Update();
 			Hotbar.Update();
-			if (BarOff < 30 && !Bar_Hovered && Hotbar.SubBar == null) BarOff++;
 			return true;
 		}
 

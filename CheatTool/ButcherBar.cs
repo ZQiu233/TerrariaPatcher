@@ -15,14 +15,17 @@ namespace CheatTool
 	{
 		public ButcherBar()
 		{
+			Main.instance.LoadItem(ItemID.DemonHeart);
+			Main.instance.LoadItem(ItemID.ObsidianSkull);
+			Main.instance.LoadItem(ItemID.MechanicalSkull);
 			Size = new Vector2(130, 50);
-			Image KillMobs = new Image(Main.itemTexture[ItemID.DemonHeart]) { ToolTip = "Kill Mobs" };
+			Image KillMobs = new Image(Terraria.GameContent.TextureAssets.Item[ItemID.DemonHeart].Value) { ToolTip = "Kill Mobs" };
 			KillMobs.OnClick += KillMobs_OnClick;
 
-			Image KillNPCs = new Image(Main.itemTexture[ItemID.ObsidianSkull]) { ToolTip = "Kill NPCs" };
+			Image KillNPCs = new Image(Terraria.GameContent.TextureAssets.Item[ItemID.ObsidianSkull].Value) { ToolTip = "Kill NPCs" };
 			KillNPCs.OnClick += KillNPCs_OnClick;
 
-			Image KillAll = new Image(Main.itemTexture[ItemID.MechanicalSkull]) { ToolTip = "Kill all" };
+			Image KillAll = new Image(Terraria.GameContent.TextureAssets.Item[ItemID.MechanicalSkull].Value) { ToolTip = "Kill all" };
 			KillAll.OnClick += KillAll_OnClick;
 
 			Controls.Add(KillMobs);

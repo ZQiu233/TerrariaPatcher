@@ -233,7 +233,7 @@ namespace Patcher
 			{
 				var type = Target.ManifestModule.Types[j];
 				j++;
-				foreach(var typeAttr in type.CustomAttributes)
+				foreach (var typeAttr in type.CustomAttributes)
 				{
 					if (typeAttr.AttributeType.FullName != "PBase.PDependence") continue;
 					PDependenceOption o = (PDependenceOption)typeAttr.ConstructorArguments[0].Value;
@@ -521,7 +521,13 @@ namespace Patcher
 		public static void ExportPublic(string target)
 		{
 			PatchTool pt = new PatchTool();
-			pt.Target = AssemblyDef.Load(target);
+			byte[] data = null;
+			using (Stream s = File.Open(target, FileMode.Open))
+			{
+				data = new byte[s.Length];
+				s.Read(data, 0, (int)s.Length);
+			}
+			pt.Target = AssemblyDef.Load(data);
 			pt.PublicAllMember();
 			pt.Save("Public.exe");
 		}
@@ -534,17 +540,26 @@ namespace Patcher
 				{
 					EmbeddedResource embeddedResource = (EmbeddedResource)enumerator.Current;
 					string a = embeddedResource.Name;
-					if (!(a == "Terraria.Libraries.DotNetZip.Ionic.Zip.CF.dll"))
-						if (!(a == "Terraria.Libraries.JSON.NET.Newtonsoft.Json.dll"))
-							if (!(a == "Terraria.Libraries.ReLogic.ReLogic.dll"))
-								if (a == "Terraria.Libraries.Steamworks.NET.Windows.Steamworks.NET.dll")
-									File.WriteAllBytes("Steamworks.NET.dll", embeddedResource.GetResourceData());
-								else
-									File.WriteAllBytes("ReLogic.dll", embeddedResource.GetResourceData());
-							else
-								File.WriteAllBytes("Newtonsoft.Json.dll", embeddedResource.GetResourceData());
-						else
+					switch (a)
+					{
+						case "Terraria.Libraries.DotNetZip.Ionic.Zip.CF.dll":
 							File.WriteAllBytes("Ionic.Zip.CF.dll", embeddedResource.GetResourceData());
+							break;
+						case "Terraria.Libraries.JSON.NET.Newtonsoft.Json.dll":
+							File.WriteAllBytes("Newtonsoft.Json.dll", embeddedResource.GetResourceData());
+							break;
+						case "Terraria.Libraries.ReLogic.ReLogic.dll":
+							File.WriteAllBytes("ReLogic.dll", embeddedResource.GetResourceData());
+							break;
+						case "Terraria.Libraries.Steamworks.NET.Windows.Steamworks.NET.dll":
+							File.WriteAllBytes("Steamworks.NET.dll", embeddedResource.GetResourceData());
+							break;
+						case "Terraria.Libraries.RailSDK.Windows.RailSDK.Net.dll‎":
+							File.WriteAllBytes("RailSDK.Net.dll‎", embeddedResource.GetResourceData());
+							break;
+						default:
+							break;
+					}
 				}
 			}
 		}

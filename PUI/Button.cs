@@ -30,9 +30,9 @@ namespace PUI
 		}
 		public override void Draw(SpriteBatch batch)
 		{
-			Utils.DrawInvBG(batch, DrawPosition.X, DrawPosition.Y, Width, Height, Window.WindowBackground);
+			Terraria.Utils.DrawInvBG(batch, DrawPosition.X, DrawPosition.Y, Width, Height, Window.WindowBackground);
 			if (_Hovered)
-				batch.Draw(Main.inventoryBack9Texture,
+				batch.Draw(Terraria.GameContent.TextureAssets.InventoryBack9.Value,
 						new Rectangle((int)DrawPosition.X,
 						(int)DrawPosition.Y,
 						(int)Width,

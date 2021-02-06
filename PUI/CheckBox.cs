@@ -11,8 +11,8 @@ namespace PUI
 {
 	public class CheckBox : Control
 	{
-		public static Texture2D CheckBoxTexture = Main.instance.OurLoad<Texture2D>("Qiu/UI/CheckBox");
-		public static Texture2D CheckBoxMarkedTexture = Main.instance.OurLoad<Texture2D>("Qiu/UI/CheckMark");
+		public static Texture2D CheckBoxTexture = Utils.OurLoad<Texture2D>("Qiu/UI/CheckBox");
+		public static Texture2D CheckBoxMarkedTexture = Utils.OurLoad<Texture2D>("Qiu/UI/CheckMark");
 
 		private Container Content = new Container();
 		private Image CheckState = new Image(CheckBoxTexture);

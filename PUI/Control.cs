@@ -183,7 +183,7 @@ namespace PUI
 			OnMouseUp?.Invoke(this, mue);
 			if (Parent != null)
 			{
-				if (Parent.Inside(MouseState.X, MouseState.Y) && !mue.Handled)
+				if (Parent.Inside(Main.mouseX, Main.mouseY) && !mue.Handled)
 				{
 					Parent.Up_Pass(mue);
 				}
@@ -194,7 +194,7 @@ namespace PUI
 			OnMouseDown?.Invoke(this, mde);
 			if (Parent != null)
 			{
-				if (Parent.Inside(MouseState.X, MouseState.Y) && !mde.Handled)
+				if (Parent.Inside(Main.mouseX, Main.mouseY) && !mde.Handled)
 				{
 					Parent.Down_Pass(mde);
 				}
@@ -206,7 +206,7 @@ namespace PUI
 			OnMouseWheel?.Invoke(this, mwe);
 			if (Parent != null)
 			{
-				if (Parent.Inside(MouseState.X, MouseState.Y) && !mwe.Handled)
+				if (Parent.Inside(Main.mouseX, Main.mouseY) && !mwe.Handled)
 				{
 					Parent.Wheel_Pass(mwe);
 				}
@@ -235,8 +235,8 @@ namespace PUI
 			{
 				if (_Down_Left)
 				{
-					Up_Pass(new OnMouseUpEventArgs() { Position = new Vector2(MouseState.X, MouseState.Y) });
-					Click_Pass(new OnClickEventArgs() { Position = new Vector2(MouseState.X, MouseState.Y) });
+					Up_Pass(new OnMouseUpEventArgs() { Position = new Vector2(Main.mouseX, Main.mouseY) });
+					Click_Pass(new OnClickEventArgs() { Position = new Vector2(Main.mouseX, Main.mouseY) });
 				}
 			}
 			else if ((!ButtonPressed(MouseState.RightButton) && ButtonPressed(LastMouseState.RightButton)) && Main.hasFocus)
@@ -244,17 +244,17 @@ namespace PUI
 				if (_Down_Right)
 				{
 
-					Up_Pass(new OnMouseUpEventArgs() { Position = new Vector2(MouseState.X, MouseState.Y), Button = MouseButtons.Right });
-					Click_Pass(new OnClickEventArgs() { Position = new Vector2(MouseState.X, MouseState.Y), Button = MouseButtons.Right });
+					Up_Pass(new OnMouseUpEventArgs() { Position = new Vector2(Main.mouseX, Main.mouseY), Button = MouseButtons.Right });
+					Click_Pass(new OnClickEventArgs() { Position = new Vector2(Main.mouseX, Main.mouseY), Button = MouseButtons.Right });
 				}
 			}
 
-			if (!Inside(MouseState.X, MouseState.Y) && Main.hasFocus)
+			if (!Inside(Main.mouseX, Main.mouseY) && Main.hasFocus)
 			{
 				//Leave
 				if (_LastInside)
 				{
-					OnMouseLeaveEventArgs mle = new OnMouseLeaveEventArgs() { Position = new Vector2(MouseState.X, MouseState.Y) };
+					OnMouseLeaveEventArgs mle = new OnMouseLeaveEventArgs() { Position = new Vector2(Main.mouseX, Main.mouseY) };
 					OnMouseLeave?.Invoke(this, mle);
 				}
 			}
@@ -263,7 +263,7 @@ namespace PUI
 				if (!_LastInside)
 				{
 					//Enter
-					OnMouseEnterEventArgs mee = new OnMouseEnterEventArgs() { Position = new Vector2(MouseState.X, MouseState.Y) };
+					OnMouseEnterEventArgs mee = new OnMouseEnterEventArgs() { Position = new Vector2(Main.mouseX, Main.mouseY) };
 					OnMouseEnter?.Invoke(this, mee);
 				}
 			}
@@ -271,19 +271,19 @@ namespace PUI
 
 			if (this is Container)
 			{
-				if (((Container)this).ControlAt(MouseState.X, MouseState.Y) == this)
+				if (((Container)this).ControlAt(Main.mouseX, Main.mouseY) == this)
 					CheckMouseEvent();
 			}
 			else
 			{
 				CheckMouseEvent();
 			}
-			_LastInside = Inside(MouseState.X, MouseState.Y);//上一个状态 标识鼠标是否在控件内
+			_LastInside = Inside(Main.mouseX, Main.mouseY);//上一个状态 标识鼠标是否在控件内
 		}
 
 		public virtual void Draw(SpriteBatch batch)
 		{
-			if (Inside(MouseState.X, MouseState.Y))
+			if (Inside(Main.mouseX, Main.mouseY))
 			{
 				Main.LocalPlayer.mouseInterface = BlockMouse;
 			}
@@ -297,8 +297,8 @@ namespace PUI
 
 		private void CheckMouseEvent()
 		{
-			int mouseX = MouseState.X;
-			int mouseY = MouseState.Y;
+			int mouseX = Main.mouseX;
+			int mouseY = Main.mouseY;
 
 			if (Inside(mouseX, mouseY) && Main.hasFocus)
 			{

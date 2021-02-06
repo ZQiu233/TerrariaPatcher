@@ -14,10 +14,10 @@ namespace CheatTool
 	public class EnviromentBar : Bar
 	{
 
-		public static Texture2D DayTimeIcon = Main.instance.OurLoad<Texture2D>("Qiu/UI/SunIcon");
-		public static Texture2D NightTimeIcon = Main.instance.OurLoad<Texture2D>("Qiu/UI/MoonIcon");
-		public static Texture2D RainIcon = Main.instance.OurLoad<Texture2D>("Qiu/UI/RainIcon");
-		public static Texture2D RainStopIcon = Main.instance.OurLoad<Texture2D>("Qiu/UI/RainStop");
+		public static Texture2D DayTimeIcon = Main.instance.Content.Load<Texture2D>("Qiu/UI/SunIcon");
+		public static Texture2D NightTimeIcon = Main.instance.Content.Load<Texture2D>("Qiu/UI/MoonIcon");
+		public static Texture2D RainIcon = Main.instance.Content.Load<Texture2D>("Qiu/UI/RainIcon");
+		public static Texture2D RainStopIcon = Main.instance.Content.Load<Texture2D>("Qiu/UI/RainStop");
 
 		public EnviromentBar()
 		{

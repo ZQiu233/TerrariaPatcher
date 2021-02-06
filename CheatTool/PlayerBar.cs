@@ -15,11 +15,13 @@ namespace CheatTool
 	{
 		public PlayerBar()
 		{
+			Main.instance.LoadItem(ItemID.Toolbelt);
+			Main.instance.LoadItem(ItemID.GhostMask);
 			Size = new Vector2(100, 50);
-			Image BlockReachImage = new Image(Main.itemTexture[ItemID.Toolbelt]) { ToolTip = "Block Reach" };
+			Image BlockReachImage = new Image(Terraria.GameContent.TextureAssets.Item[ItemID.Toolbelt].Value) { ToolTip = "Block Reach" };
 			BlockReachImage.OnClick += BlockReachImage_OnClick;
 
-			Image GhostModeImage = new Image(Main.itemTexture[ItemID.GhostMask]) { ToolTip = "Ghost Mode" };
+			Image GhostModeImage = new Image(Terraria.GameContent.TextureAssets.Item[ItemID.GhostMask].Value) { ToolTip = "Ghost Mode" };
 			GhostModeImage.OnClick += GhostModeImage_OnClick;
 
 			Controls.Add(BlockReachImage);

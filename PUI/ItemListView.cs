@@ -78,18 +78,18 @@ namespace PUI
 		}
 		private void DrawBackground(SpriteBatch batch)
 		{
-			Utils.DrawInvBG(batch, DrawPosition.X, DrawPosition.Y, Width, Height, Window.WindowBackground);
+			Terraria.Utils.DrawInvBG(batch, DrawPosition.X, DrawPosition.Y, Width, Height, Window.WindowBackground);
 			for (int i = 0; i < LabelContent.Controls.Count; i++)
 			{
-				Utils.DrawInvBG(batch, LabelContent.Controls[i].DrawPosition.X, LabelContent.Controls[i].DrawPosition.Y, LabelContent.Controls[i].Width, LabelContent.Controls[i].Height, Window.WindowBackground);
+				Terraria.Utils.DrawInvBG(batch, LabelContent.Controls[i].DrawPosition.X, LabelContent.Controls[i].DrawPosition.Y, LabelContent.Controls[i].Width, LabelContent.Controls[i].Height, Window.WindowBackground);
 			}
 			if (_Hovered)
 			{
 				if (_Hovered_Index < LabelContent.Controls.Count)
 				{
-					try//sometimes it causes crashing,i don't know why it did it
+					try//sometimes it causes crashes,i don't know why
 					{
-						batch.Draw(Main.inventoryBack9Texture,
+						batch.Draw(Terraria.GameContent.TextureAssets.InventoryBack9.Value,
 							new Rectangle((int)LabelContent.Controls[_Hovered_Index].DrawPosition.X,
 							(int)LabelContent.Controls[_Hovered_Index].DrawPosition.Y,
 							(int)LabelContent.Controls[_Hovered_Index].Width,
@@ -124,7 +124,7 @@ namespace PUI
 		private void Item_OnHover(object arg1, MouseEvent arg2)
 		{
 			_Hovered = true;
-			float rH = MouseState.Y - DrawPosition.Y;
+			float rH = Main.mouseY - DrawPosition.Y;
 			_Hovered_Index = (int)(Math.Floor((double)rH / ItemHeight));
 		}
 

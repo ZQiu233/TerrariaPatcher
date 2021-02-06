@@ -20,7 +20,7 @@ namespace PHooks
 			Hooks.Update.DispatchAfter(this, time);
 		}
 		[PMethod(PMethodOption.Replace, "DoDraw", "None")]
-		public void Draw_Hooked(GameTime time)
+		public void DoDraw_Hooked(GameTime time)
 		{
 			Hooks.Draw.DispatchPre(this, time);
 			DoDraw(time);

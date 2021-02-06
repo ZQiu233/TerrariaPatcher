@@ -13,7 +13,7 @@ namespace PUI
 {
 	public class Label : Control
 	{
-		protected DynamicSpriteFont SpriteFont = Main.fontMouseText;
+		protected DynamicSpriteFont SpriteFont = Terraria.GameContent.FontAssets.MouseText.Value;
 		protected float _PaddingLeft = 4f, _PaddingRight = 4f;
 		protected bool MultiLine
 		{
@@ -107,7 +107,7 @@ namespace PUI
 			if (Visible)
 			{
 				base.Draw(batch);
-				DynamicSpriteFont sf = Main.fontMouseText;
+				DynamicSpriteFont sf = Terraria.GameContent.FontAssets.MouseText.Value;
 				List<List<TextSnippet>> lines = GetDrawStringMultiLine(Text);
 				if (lines.Count == 0)
 					lines.Add(new List<TextSnippet>() { new TextSnippet("") });

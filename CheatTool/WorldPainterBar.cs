@@ -21,7 +21,7 @@ namespace CheatTool
 		private unsafe struct CTile
 		{
 			public ushort Type;
-			public byte Wall;
+			public ushort Wall;
 			public byte Liquid;
 			public byte BTileHeader;
 			public byte BTileHeader2;
@@ -69,23 +69,28 @@ namespace CheatTool
 		public WorldPainterBar() : base()
 		{
 
+			Main.instance.LoadItem(ItemID.Paintbrush);
+			Main.instance.LoadItem(ItemID.EmptyDropper);
+			Main.instance.LoadItem(ItemID.GoldChest);
+			Main.instance.LoadItem(ItemID.FastClock);
+
 			Size = new Vector2(240, 50);
-			BrushImage = new Image(Main.itemTexture[ItemID.Paintbrush]) { ToolTip = "Brush" };
+			BrushImage = new Image(Terraria.GameContent.TextureAssets.Item[ItemID.Paintbrush].Value) { ToolTip = "Brush" };
 			BrushImage.OnClick += BrushImage_OnClick;
 
-			EyeDropperImage = new Image(Main.itemTexture[ItemID.EmptyDropper]) { ToolTip = "EyeDropper" };
+			EyeDropperImage = new Image(Terraria.GameContent.TextureAssets.Item[ItemID.EmptyDropper].Value) { ToolTip = "EyeDropper" };
 			EyeDropperImage.OnClick += EyeDropperImage_OnClick;
 
-			FlipVertical = new Image(Main.instance.OurLoad<Texture2D>("Qiu/UI/Vertical")) { ToolTip = "Flip Vertical" };
+			FlipVertical = new Image(Main.instance.Content.Load<Texture2D>("Qiu/UI/Vertical")) { ToolTip = "Flip Vertical" };
 			FlipVertical.OnClick += FlipVertical_OnClick; ;
 
-			FlipHorizontal = new Image(Main.instance.OurLoad<Texture2D>("Qiu/UI/Horizontal")) { ToolTip = "Flip Horizontal" };
+			FlipHorizontal = new Image(Main.instance.Content.Load<Texture2D>("Qiu/UI/Horizontal")) { ToolTip = "Flip Horizontal" };
 			FlipHorizontal.OnClick += FlipHorizon_OnClick; ;
 
-			SaveImage = new Image(Main.itemTexture[ItemID.GoldChest]) { ToolTip = "Save" };
+			SaveImage = new Image(Terraria.GameContent.TextureAssets.Item[ItemID.GoldChest].Value) { ToolTip = "Save" };
 			SaveImage.OnClick += SaveImage_OnClick;
 
-			LoadImage = new Image(Main.itemTexture[ItemID.FastClock]) { ToolTip = "Load" };
+			LoadImage = new Image(Terraria.GameContent.TextureAssets.Item[ItemID.FastClock].Value) { ToolTip = "Load" };
 			LoadImage.OnClick += LoadImage_OnClick;
 
 
@@ -103,7 +108,7 @@ namespace CheatTool
 			{
 				for (int i = 0; i < ClipBoard.GetLength(0) / 2; i++)
 				{
-					Utils.Swap(ref ClipBoard[i, j], ref ClipBoard[ClipBoard.GetLength(0) - 1 - i, j]);
+					Terraria.Utils.Swap(ref ClipBoard[i, j], ref ClipBoard[ClipBoard.GetLength(0) - 1 - i, j]);
 				}
 			}
 			Main.NewText("Fliped");
@@ -115,7 +120,7 @@ namespace CheatTool
 			{
 				for (int j = 0; j < ClipBoard.GetLength(1) / 2; j++)
 				{
-					Utils.Swap(ref ClipBoard[i, j], ref ClipBoard[i, ClipBoard.GetLength(1) - 1 - j]);
+					Terraria.Utils.Swap(ref ClipBoard[i, j], ref ClipBoard[i, ClipBoard.GetLength(1) - 1 - j]);
 				}
 			}
 			Main.NewText("Fliped");
@@ -125,7 +130,7 @@ namespace CheatTool
 		{
 			BrushActive = false;
 			EyeDropperActive = false;
-			Window w = new Window(new Rectangle(100, 100, 200, 70)) { Title = "Save", Icon = Main.itemTexture[ItemID.GoldChest] };
+			Window w = new Window(new Rectangle(100, 100, 200, 70)) { Title = "Save", Icon = Terraria.GameContent.TextureAssets.Item[ItemID.GoldChest].Value };
 			TextBox fileName = new TextBox(false) { Position = new Vector2(10, 35), Size = new Vector2(130, 30) };
 			w.Controls.Add(fileName);
 			Button saveButton = new Button() { Text = "Save", Position = new Vector2(140, 35), Size = new Vector2(50, 30) };
@@ -173,11 +178,11 @@ namespace CheatTool
 		private bool Inside()
 		{
 			Bar b = this;
-			if (b.Inside(MouseState.X, MouseState.Y)) return true;
+			if (b.Inside(Main.mouseX, Main.mouseY)) return true;
 			while (b.ParentBar != null)
 			{
 				b = b.ParentBar;
-				if (b.Inside(MouseState.X, MouseState.Y)) return true;
+				if (b.Inside(Main.mouseX, Main.mouseY)) return true;
 			}
 			return false;
 		}
@@ -186,7 +191,7 @@ namespace CheatTool
 		{
 			BrushActive = false;
 			EyeDropperActive = false;
-			Window w = new Window(new Rectangle(100, 100, 150, 300)) { Title = "Save", Icon = Main.itemTexture[ItemID.FastClock] };
+			Window w = new Window(new Rectangle(100, 100, 150, 300)) { Title = "Save", Icon = Terraria.GameContent.TextureAssets.Item[ItemID.FastClock].Value };
 			ItemListView ls = new ItemListView()
 			{
 				Position = new Vector2(10, 35),
@@ -260,10 +265,10 @@ namespace CheatTool
 			Rectangle result = new Rectangle((int)vector.X, (int)vector.Y, (int)(position.X - vector.X), (int)(position.Y - vector.Y));
 			int width = spriteBatch.GraphicsDevice.Viewport.Width;
 			int height = spriteBatch.GraphicsDevice.Viewport.Height;
-			result.X = Utils.Clamp(result.X, 0, width);
-			result.Y = Utils.Clamp(result.Y, 0, height);
-			result.Width = Utils.Clamp(result.Width, 0, width - result.X);
-			result.Height = Utils.Clamp(result.Height, 0, height - result.Y);
+			result.X = Terraria.Utils.Clamp(result.X, 0, width);
+			result.Y = Terraria.Utils.Clamp(result.Y, 0, height);
+			result.Width = Terraria.Utils.Clamp(result.Width, 0, width - result.X);
+			result.Height = Terraria.Utils.Clamp(result.Height, 0, height - result.Y);
 			return result;
 		}
 
@@ -408,9 +413,9 @@ namespace CheatTool
 					Tile tile = BrushTiles[x, y];
 					if (tile.active())
 					{
-						if (!Main.tileSetsLoaded[tile.type])
+						if (Terraria.GameContent.TextureAssets.Tile[tile.type] == null || !Terraria.GameContent.TextureAssets.Tile[tile.type].IsLoaded)
 							Main.instance.LoadTiles(tile.type);
-						Texture2D texture = Main.tileTexture[tile.type];
+						Texture2D texture = Terraria.GameContent.TextureAssets.Tile[tile.type].Value;
 						Color color = Color.White;
 						color.A = 160;
 						Rectangle? value = new Rectangle(tile.frameX, tile.frameY, 16, 16);
@@ -440,27 +445,28 @@ namespace CheatTool
 				float a = 1f;
 				float scale = 0.6f;
 				Color color = BuffColor(Color.White, r, g, b, a);
-				Main.spriteBatch.Draw(Main.magicPixel, upperLeftScreen, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, 16f * brushSize, SpriteEffects.None, 0f);
+
+				Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.MagicPixel.Value, upperLeftScreen, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, 16f * brushSize, SpriteEffects.None, 0f);
 				b = 0.3f;
 				g = 0.95f;
 				scale = (a = 1f);
 				color = BuffColor(Color.White, r, g, b, a);
-				Main.spriteBatch.Draw(Main.magicPixel, upperLeftScreen + Vector2.UnitX * -2f, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(2f, 16f * brushSize.Y), SpriteEffects.None, 0f);
-				Main.spriteBatch.Draw(Main.magicPixel, upperLeftScreen + Vector2.UnitX * 16f * brushSize.X, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(2f, 16f * brushSize.Y), SpriteEffects.None, 0f);
-				Main.spriteBatch.Draw(Main.magicPixel, upperLeftScreen + Vector2.UnitY * -2f, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(16f * brushSize.X, 2f), SpriteEffects.None, 0f);
-				Main.spriteBatch.Draw(Main.magicPixel, upperLeftScreen + Vector2.UnitY * 16f * brushSize.Y, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(16f * brushSize.X, 2f), SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.MagicPixel.Value, upperLeftScreen + Vector2.UnitX * -2f, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(2f, 16f * brushSize.Y), SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.MagicPixel.Value, upperLeftScreen + Vector2.UnitX * 16f * brushSize.X, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(2f, 16f * brushSize.Y), SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.MagicPixel.Value, upperLeftScreen + Vector2.UnitY * -2f, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(16f * brushSize.X, 2f), SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.MagicPixel.Value, upperLeftScreen + Vector2.UnitY * 16f * brushSize.Y, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(16f * brushSize.X, 2f), SpriteEffects.None, 0f);
 			}
 			if (EyeDropperActive && !Inside() && !Main.gameMenu && !Main.playerInventory)
 			{
-				Main.LocalPlayer.showItemIcon2 = ItemID.EmptyDropper;
-				Main.LocalPlayer.showItemIcon = true;
+				Main.LocalPlayer.cursorItemIconID = ItemID.EmptyDropper;
+				Main.LocalPlayer.cursorItemIconEnabled = true;
 			}
 			if (BrushActive && !Inside() && !Main.gameMenu && !Main.playerInventory)
 			{
-				Main.LocalPlayer.showItemIcon2 = ItemID.Paintbrush;
-				Main.LocalPlayer.showItemIcon = true;
+				Main.LocalPlayer.cursorItemIconID = ItemID.Paintbrush;
+				Main.LocalPlayer.cursorItemIconEnabled = true;
 				Vector2 Size = new Vector2(ClipBoard.GetLength(0), ClipBoard.GetLength(1));
-				Vector2 dPos = new Vector2(MouseState.X, MouseState.Y) - (Size * 8);
+				Vector2 dPos = new Vector2(Main.mouseX, Main.mouseY) - (Size * 8);
 
 				if (!(MouseState.LeftButton == ButtonState.Pressed)) DrawPreview(batch, ClipBoard, dPos);
 				Rectangle value = new Rectangle(0, 0, 1, 1);
@@ -471,15 +477,15 @@ namespace CheatTool
 				float a = 1f;
 				float scale = 0.6f;
 				Color color = BuffColor(Color.White, r, g, b, a);
-				Main.spriteBatch.Draw(Main.magicPixel, dPos, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, 16f * Size, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.MagicPixel.Value, dPos, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, 16f * Size, SpriteEffects.None, 0f);
 				b = 0.3f;
 				g = 0.95f;
 				scale = (a = 1f);
 				color = BuffColor(Color.White, r, g, b, a);
-				Main.spriteBatch.Draw(Main.magicPixel, dPos + Vector2.UnitX * -2f, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(2f, 16f * Size.Y), SpriteEffects.None, 0f);
-				Main.spriteBatch.Draw(Main.magicPixel, dPos + Vector2.UnitX * 16f * Size.X, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(2f, 16f * Size.Y), SpriteEffects.None, 0f);
-				Main.spriteBatch.Draw(Main.magicPixel, dPos + Vector2.UnitY * -2f, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(16f * Size.X, 2f), SpriteEffects.None, 0f);
-				Main.spriteBatch.Draw(Main.magicPixel, dPos + Vector2.UnitY * 16f * Size.Y, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(16f * Size.X, 2f), SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.MagicPixel.Value, dPos + Vector2.UnitX * -2f, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(2f, 16f * Size.Y), SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.MagicPixel.Value, dPos + Vector2.UnitX * 16f * Size.X, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(2f, 16f * Size.Y), SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.MagicPixel.Value, dPos + Vector2.UnitY * -2f, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(16f * Size.X, 2f), SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.MagicPixel.Value, dPos + Vector2.UnitY * 16f * Size.Y, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(16f * Size.X, 2f), SpriteEffects.None, 0f);
 			}
 		}
 	}

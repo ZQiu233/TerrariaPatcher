@@ -50,7 +50,7 @@ namespace PUI
 			}
 			private void DrawBackground(SpriteBatch batch)
 			{
-				batch.Draw(Main.inventoryBack9Texture, new Rectangle((int)DrawPosition.X, (int)DrawPosition.Y, (int)Size.X, (int)Size.Y), Color.White);
+				batch.Draw(Terraria.GameContent.TextureAssets.InventoryBack9.Value, new Rectangle((int)DrawPosition.X, (int)DrawPosition.Y, (int)Size.X, (int)Size.Y), Color.White);
 			}
 			private void DrawContent(SpriteBatch batch)
 			{
@@ -141,7 +141,7 @@ namespace PUI
 		}
 		private void DrawBackground(SpriteBatch batch)
 		{
-			Utils.DrawInvBG(batch, DrawPosition.X, DrawPosition.Y, Width, Height, Window.WindowBackground);
+			Terraria.Utils.DrawInvBG(batch, DrawPosition.X, DrawPosition.Y, Width, Height, Window.WindowBackground);
 		}
 		private static void DrawSizedTexture(SpriteBatch batch, Texture2D texture, Color color, Vector2 pos, Vector2 size)
 		{
@@ -185,7 +185,7 @@ namespace PUI
 			Content.Draw(batch);
 			DrawElements(batch);
 			if (_Item_Hovered)
-				ChatManager.DrawColorCodedStringWithShadow(batch, Main.fontMouseText, _Hover_Text, new Vector2(MouseState.X, MouseState.Y) + new Vector2(20, 20), Color.White, 0f, Vector2.Zero, Vector2.One);
+				ChatManager.DrawColorCodedStringWithShadow(batch, Terraria.GameContent.FontAssets.MouseText.Value, _Hover_Text, new Vector2(Main.mouseX, Main.mouseY) + new Vector2(20, 20), Color.White, 0f, Vector2.Zero, Vector2.One);
 		}
 	}
 }

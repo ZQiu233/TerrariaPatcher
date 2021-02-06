@@ -13,7 +13,7 @@ namespace PUI
 	{
 		private class ScrollSlider : Control
 		{
-			public static Texture2D ScrollbarSliderTexture = Main.instance.OurLoad<Texture2D>("Qiu/UI/ScrollbarSlider");
+			public static Texture2D ScrollbarSliderTexture = Utils.OurLoad<Texture2D>("Qiu/UI/ScrollbarSlider");
 			public static Texture2D ScrollbarSliderFillTexture//from cheatsheet
 			{
 				get
@@ -47,7 +47,7 @@ namespace PUI
 		}
 		private const float _SliderWidthScale = 1.2f;
 		private ScrollSlider Slider = new ScrollSlider();
-		public static Texture2D ScrollbarBackgroundTexture = Main.instance.OurLoad<Texture2D>("Qiu/UI/ScrollbarBackground");
+		public static Texture2D ScrollbarBackgroundTexture = Utils.OurLoad<Texture2D>("Qiu/UI/ScrollbarBackground");
 		private float _Speed = 0.3f;
 		public float Speed
 		{
@@ -141,18 +141,18 @@ namespace PUI
 			base.Update();
 			if (_Slider_Draging)
 			{
-				Vector2 sliderDrawPos = new Vector2(MouseState.X, MouseState.Y) - _Slider_Mouse_Off;
+				Vector2 sliderDrawPos = new Vector2(Main.mouseX, Main.mouseY) - _Slider_Mouse_Off;
 				float h = (sliderDrawPos - DrawPosition).Y;
 				float t = Height - Slider.Height;
 				Value = t == 0 ? 0f : h / (t / 100);
 			}
 			if (_ScrollBar_Down)
 			{
-				if (!Slider.Inside(MouseState.X, MouseState.Y))
+				if (!Slider.Inside(Main.mouseX, Main.mouseY))
 				{
-					if (MouseState.Y > Slider.DrawPosition.Y)
+					if (Main.mouseY > Slider.DrawPosition.Y)
 						Value += Speed;
-					else if (MouseState.Y < Slider.DrawPosition.Y)
+					else if (Main.mouseY < Slider.DrawPosition.Y)
 						Value -= Speed;
 				}
 			}

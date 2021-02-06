@@ -9,7 +9,7 @@ using Terraria;
 
 namespace CheatTool
 {
-	[PPatch(PPatchOption.Merge, "Terraria", "Lighting", "None")]
+	/*[PPatch(PPatchOption.Merge, "Terraria", "Lighting", "None")]
 	class Lighting : Terraria.Lighting
 	{
 		[PMethod(PMethodOption.Replace, "LightTiles", "None")]
@@ -313,5 +313,5 @@ namespace CheatTool
 				Terraria.Lighting.PreRenderPhase();
 			}
 		}
-	}
+	}*/
 }

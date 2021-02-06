@@ -14,7 +14,7 @@ namespace PUI
 {
 	public class TextBox : Label
 	{
-		public static Texture2D TextBoxEdge = Main.instance.OurLoad<Texture2D>("Qiu/UI/TextboxEdge");
+		public static Texture2D TextBoxEdge = Utils.OurLoad<Texture2D>("Qiu/UI/TextboxEdge");
 		private long _Timer = 0;
 		private bool _Blink = false;
 		private ScrollBar ScrollBar = new ScrollBar();

@@ -11,18 +11,19 @@ using Terraria.ID;
 
 namespace CheatTool
 {
-	class WorldBar:Bar
+	class WorldBar : Bar
 	{
 		public WorldBar()
 		{
 			Size = new Vector2(50, 50);
-			Image RevealMapImage = new Image(Main.buffTexture[BuffID.EyeballSpring]) { ToolTip = "Refresh" };
+			Main.instance.Content.Load<Texture2D>(Terraria.GameContent.TextureAssets.Buff[BuffID.EyeballSpring].Name);
+			Image RevealMapImage = new Image(Terraria.GameContent.TextureAssets.Buff[BuffID.EyeballSpring].Value) { ToolTip = "Refresh" };
 			RevealMapImage.OnClick += BlockReachImage_OnClick;
-			
+
 
 			Controls.Add(RevealMapImage);
 		}
-		
+
 		private void BlockReachImage_OnClick(object arg1, PUI.EventArgs.OnClickEventArgs arg2)
 		{
 			IUtils.RevealMap();

@@ -17,34 +17,32 @@ using Terraria.Social;
 namespace Utils
 {
 	[PPatch(PPatchOption.Merge, "Terraria.Social", "SocialAPI", "NoSteam")]
-	public class NoSteam
+	public class NoSteam_SocialAPI
 	{
 		[PMethod(PMethodOption.Replace, "Initialize", "None")]
 		public static void Initialize_Patched(SocialMode? mode = null)
 		{
-			if (!mode.HasValue)
-			{
-				mode = new SocialMode?(SocialMode.None);
-				mode = new SocialMode?(SocialMode.Steam);
-			}
-			SocialAPI._mode = mode.Value;
-			SocialAPI._modules = new List<ISocialModule>();
-			using (List<ISocialModule>.Enumerator enumerator = SocialAPI._modules.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					enumerator.Current.Initialize();
-				}
-			}
+		}
+		[PMethod(PMethodOption.Replace, "Shutdown", "None")]
+		public static void Shutdown_Patched()
+		{
 		}
 	}
-	[PPatch(PPatchOption.Merge, "Terraria", "Main", "", true, true, true)]
+	[PPatch(PPatchOption.Merge, "Terraria.UI", "InGameNotificationsTracker", "NoSteam")]
+	public class NoSteam_InGameNotificationsTracker
+	{
+		[PMethod(PMethodOption.Replace, "Initialize", "None")]
+		public static void Initialize_Patched()
+		{
+		}
+	}
+	/*[PPatch(PPatchOption.Merge, "Terraria", "Main", "", true, true, true)]
 	public class Utils
 	{
 		public static bool BackspaceProtection;
 
 		[PMethod(PMethodOption.Replace, "GetInputText", "Fixed input bug")]
-		public static string GetInputText_Patched(string oldString)
+		public static string GetInputText_Patched(string oldString, bool b)
 		{
 			if (!Main.hasFocus)
 			{
@@ -174,5 +172,5 @@ namespace Utils
 			}
 			return text;
 		}
-	}
+	}*/
 }

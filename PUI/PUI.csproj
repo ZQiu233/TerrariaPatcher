@@ -51,7 +51,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="ReLogic">
-      <HintPath>..\Patcher\bin\Release\ReLogic.dll</HintPath>
+      <HintPath>..\Patcher\ReLogic.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -89,6 +89,7 @@
     <Compile Include="ScrollBar.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="TextBox.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="Window.cs" />
     <Compile Include="WindowManager.cs" />
   </ItemGroup>

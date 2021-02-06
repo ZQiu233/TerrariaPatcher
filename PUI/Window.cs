@@ -18,14 +18,14 @@ namespace PUI
 			get;
 			internal set;
 		}
-		public static Texture2D CloseButtonTexture = Main.instance.OurLoad<Texture2D>("Qiu/UI/CloseButton");
-		public static Texture2D MinimizeButtonTexture = Main.instance.OurLoad<Texture2D>("Qiu/UI/MinimizeButton");
+		public static Texture2D CloseButtonTexture = Utils.OurLoad<Texture2D>("Qiu/UI/CloseButton");
+		public static Texture2D MinimizeButtonTexture = Utils.OurLoad<Texture2D>("Qiu/UI/MinimizeButton");
 		//PanelBackground
 		public static Color WindowBackground = new Color(33, 15, 91, 255) * 0.685f;
 		private Container TitleBar = new Container();
-		private Image CloseButton = new Image(CloseButtonTexture);
-		private Image MiniMizeButton = new Image(MinimizeButtonTexture);
-		private Image IconImage = new Image(Main.itemTexture[ItemID.FragmentStardust]);
+		private Image CloseButton;
+		private Image MiniMizeButton;
+		private Image IconImage;
 		public Texture2D Icon
 		{
 			get => IconImage.Texture;
@@ -54,6 +54,10 @@ namespace PUI
 
 		public Window(Rectangle bound)
 		{
+			CloseButton = new Image(CloseButtonTexture);
+			MiniMizeButton = new Image(MinimizeButtonTexture);
+			Main.instance.LoadItem(ItemID.FragmentStardust);
+			IconImage = new Image(Terraria.GameContent.TextureAssets.Item[ItemID.FragmentStardust].Value);
 			Position = new Vector2(bound.X, bound.Y);
 			Size = new Vector2(bound.Width, bound.Height);
 
@@ -109,7 +113,7 @@ namespace PUI
 		private void TitleBar_OnMouseDown(object arg1, EventArgs.OnMouseDownEventArgs arg2)
 		{
 			_Window_Draging = true;
-			_TitleBar_Mouse_Off = new Vector2(MouseState.X, MouseState.Y) - DrawPosition;
+			_TitleBar_Mouse_Off = new Vector2(Main.mouseX, Main.mouseY) - DrawPosition;
 		}
 
 		public override void Update()
@@ -117,7 +121,7 @@ namespace PUI
 			base.Update();
 			if (_Window_Draging)
 			{
-				Vector2 WindowDrawPos = new Vector2(MouseState.X, MouseState.Y) - _TitleBar_Mouse_Off;
+				Vector2 WindowDrawPos = new Vector2(Main.mouseX, Main.mouseY) - _TitleBar_Mouse_Off;
 				Position = WindowDrawPos;
 			}
 		}
@@ -125,7 +129,7 @@ namespace PUI
 		{
 			if (Visible)
 			{
-				Utils.DrawInvBG(batch, DrawPosition.X, DrawPosition.Y, Width, Height, WindowBackground);//background, so before the child-controls
+				Terraria.Utils.DrawInvBG(batch, DrawPosition.X, DrawPosition.Y, Width, Height, WindowBackground);//background, so before the child-controls
 			}
 			base.Draw(batch);
 		}

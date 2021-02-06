@@ -53,7 +53,7 @@ namespace PUI
 			for (int i = 0; i < Controls.Count; i++)
 			{
 				float ty = h - 2 * VerticalPadding;
-				Controls[i].Size = new Vector2(h * (ty / h), ty);
+				Controls[i].Size = new Vector2(ty, ty);
 				Controls[i].Position = new Vector2(w, VerticalPadding);
 				w += _Spacing + Controls[i].Width;
 			}
@@ -66,7 +66,7 @@ namespace PUI
 		}
 		private void DrawBackground(SpriteBatch batch)
 		{
-			Utils.DrawInvBG(batch, DrawPosition.X, DrawPosition.Y, Width, Height, Window.WindowBackground);
+			Terraria.Utils.DrawInvBG(batch, DrawPosition.X, DrawPosition.Y, Width, Height, Window.WindowBackground);
 		}
 		public override void Draw(SpriteBatch batch)
 		{
@@ -78,11 +78,11 @@ namespace PUI
 				SubBar.Position = new Vector2(X + (Width / 2 - SubBar.Width / 2), Y - SubBar.Height);
 				SubBar.Draw(batch);
 			}
-			var aC = ControlAt(MouseState.X, MouseState.Y);
+			var aC = ControlAt(Main.mouseX, Main.mouseY);
 			if (aC != null)
 			{
 				if (aC.ToolTip != null && aC != this && aC.ToolTip.Trim() != "")
-					ChatManager.DrawColorCodedStringWithShadow(batch, Main.fontMouseText, aC.ToolTip, new Vector2(MouseState.X, MouseState.Y) - new Vector2(20, 20), Color.White, 0f, Vector2.Zero, Vector2.One);
+					ChatManager.DrawColorCodedStringWithShadow(batch, Terraria.GameContent.FontAssets.MouseText.Value, aC.ToolTip, new Vector2(Main.mouseX, Main.mouseY) - new Vector2(20, 20), Color.White, 0f, Vector2.Zero, Vector2.One);
 			}
 		}
 	}

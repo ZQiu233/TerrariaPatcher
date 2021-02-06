@@ -145,7 +145,8 @@ namespace CheatTool
 			{
 				Item item = new Item();
 				item.SetDefaults(i);
-				AllItems[i] = new ImageBox.ImageBoxItem(Main.itemTexture[i], item.Name)
+				Main.instance.LoadItem(i);
+				AllItems[i] = new ImageBox.ImageBoxItem(Terraria.GameContent.TextureAssets.Item[i].Value, item.Name)
 				{
 					Name = "" + i
 				};
@@ -169,7 +170,6 @@ namespace CheatTool
 							}
 						}
 					}
-					Main.PlaySound(18);
 				};
 			}
 		}

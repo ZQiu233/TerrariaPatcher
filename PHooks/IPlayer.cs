@@ -28,10 +28,10 @@ namespace PHooks
 			PHooks.Hooks.PlayerUpdateArmorSets.DispatchAfter(this, i);
 		}
 		[PMethod(PMethodOption.Replace, "AddBuff", "None")]
-		public void AddBuff_Hooked(int type, int time, bool quiet)
+		public void AddBuff_Hooked(int type, int time, bool quiet, bool foodHack)
 		{
 			PHooks.Hooks.PlayerAddBuff.DispatchPre(this, type, time, quiet);
-			AddBuff(type, time, quiet);
+			AddBuff(type, time, quiet, foodHack);
 			PHooks.Hooks.PlayerUpdateArmorSets.DispatchAfter(this, type, time, quiet);
 		}
 		[PMethod(PMethodOption.Replace, "ResetEffects", "None")]
